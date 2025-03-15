@@ -19,7 +19,13 @@ export default [
       "no-unused-vars": "error",
       "no-undef": "error",
       "no-unused-expressions": "error",
-      "prepate-constant": true,
+      "prefer-const": [
+        "error",
+        {
+          destructuring: "any",
+          ignoreReadBeforeAssign: false,
+        },
+      ],
     },
   },
   {
