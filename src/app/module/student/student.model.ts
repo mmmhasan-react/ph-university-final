@@ -5,14 +5,28 @@ const UserNameSchema = new Schema<UserName>({
   firstName: {
     type: String,
     required: true,
+    maxlength: [20, "first name must be under 20 character"],
+    trim: true,
+    validate: {
+      validator: function (value) {
+        const firstName =
+          String(value).charAt(0).toUpperCase() + String(value).slice(1);
+        return firstName === value;
+      },
+      message: `{VALUE} must be first letter uppercase`,
+    },
   },
   middleName: {
     type: String,
     required: true,
+    maxlength: [20, "first name must be under 20 character"],
+    trim: true,
   },
   lastName: {
     type: String,
     required: true,
+    maxlength: [20, "first name must be under 20 character"],
+    trim: true,
   },
 });
 const GurdianSchema = new Schema<Gurdian>({
@@ -34,12 +48,19 @@ const studentSchema = new Schema<Student>({
   id: {
     type: String,
     required: true,
+    unique: true,
   },
-  name: UserNameSchema,
+  name: {
+    type: UserNameSchema,
+    required: [true, "first name lagbei lagbe"],
+  },
   gender: {
     type: String,
     required: true,
-    enum: ["male", "female"],
+    enum: {
+      values: ["male", "female"],
+      message: `{VALUE} is not valid gender`,
+    },
   },
 
   dateOfBirth: {
@@ -49,6 +70,7 @@ const studentSchema = new Schema<Student>({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   avatar: {
     type: String,
@@ -65,13 +87,20 @@ const studentSchema = new Schema<Student>({
   bloodGroup: {
     type: String,
     enum: ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],
+    message: `{VALUE} must be a valid blood group`,
   },
   presentAddress: {
     type: String,
     required: true,
   },
-  gurdian: GurdianSchema,
-  localGurdian: LocalGurdianSchema,
+  guardian: {
+    type: GurdianSchema,
+    required: true,
+  },
+  localGurdian: {
+    type: LocalGurdianSchema,
+    required: true,
+  },
   profileImage: { type: String, required: true },
   isActive: {
     type: String,

@@ -29,7 +29,7 @@ export type Student = {
   bloodGroup?: "A+" | "A-" | "B+" | "B-" | "O+" | "O-" | "AB+" | "AB-";
   presentAddress: string;
   permanentAddress: string;
-  gurdian: Gurdian;
+  guardian: Gurdian;
   localGurdian: LocalGurdian;
   profileImage: string;
   isActive: "active" | "inActive";
